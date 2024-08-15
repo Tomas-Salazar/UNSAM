@@ -30,9 +30,9 @@ def geringoso(cadena):
                         
                 elif letra.lower() == 'u' or letra.lower() == 'ú':
                         palabra += letra + 'pu'
+                        
                 else:
                         palabra += letra
-                        #asdasd
         return palabra
 
 
