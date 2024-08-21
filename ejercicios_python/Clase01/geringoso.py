@@ -33,7 +33,6 @@ def geringoso(cadena):
                         
                 else:
                         palabra += letra
-                        #esto es una prueba
         return palabra
 
 
