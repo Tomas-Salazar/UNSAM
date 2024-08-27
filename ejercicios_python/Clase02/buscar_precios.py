@@ -1,8 +1,12 @@
 # Buscar Precios
+import csv
+from pprint import pprint
+
+archivo = 'ejercicios_python/Data/precios.csv'
 
 
-def buscar_precio(fruta):
-    data = open('ejercicios_python/Data/precios.csv', 'rt')
+def buscar_precio(nombre_archivo, fruta):
+    data = open(nombre_archivo, 'rt', encoding='utf8')
     encontrado = False
     try:
         for line in data:
@@ -17,5 +21,29 @@ def buscar_precio(fruta):
         data.close()
 
 
-buscar_precio('frambuesa')
-buscar_precio('kale')
+buscar_precio(archivo, 'frambuesa')
+buscar_precio(archivo, 'kale')
+
+
+def leer_precios(nombre_archivo):
+    dict_precios = {}
+    
+    file = open(nombre_archivo, 'r', encoding='utf8')
+    rows = csv.reader(file)
+    for i, row in enumerate(rows):
+        try:
+            if row:
+                dict_precios[ row[0].capitalize() ] = float(row[1])
+        except:
+                print(f'Algo ocurrió con la línea {i}')
+    return dict_precios
+
+
+# pprint(leer_precios(archivo))
+precios = leer_precios(archivo)
+# pprint(precios)
+
+print(precios['Naranja'])
+print(precios['Mandarina'])
+print(precios['Kiwi'] if 'Kiwi' in precios else 'no se encontró la fruta solicitada')
+print(precios['Banana']  if 'Banana' in precios else 'no se encontró la fruta solicitada')

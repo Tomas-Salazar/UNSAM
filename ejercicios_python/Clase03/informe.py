@@ -2,7 +2,8 @@
 import csv
 from pprint import pprint
 
-archivo = 'ejercicios_python/Data/camion.csv'
+archivo_camion = 'ejercicios_python/Data/camion.csv'
+archivo_precios = 'ejercicios_python/Data/precios.csv'
 
 
 def leer_camion(nombre_archivo):
@@ -25,14 +26,39 @@ def leer_camion(nombre_archivo):
     return lista_camion
 
 
-def calcular_costo_total(lista_dict):
-    total = 0
+def leer_precios(nombre_archivo):
+    dict_precios = {}
     
-    for i in lista_dict:
-        total += i['cajones'] * i['precio']
-    return f'Costo total: $ {total}'
+    file = open(nombre_archivo, 'r', encoding='utf8')
+    rows = csv.reader(file)
+    for i, row in enumerate(rows):
+        try:
+            if row:
+                dict_precios[ row[0].capitalize() ] = float(row[1])
+        except:
+                print(f'Algo ocurrió con la línea {i}')
+    return dict_precios
 
 
-camion = leer_camion(archivo)
-pprint(camion)
-print(calcular_costo_total(camion))
+camion = leer_camion(archivo_camion)
+total = 0
+for i in camion:
+    total += i['cajones'] * i['precio']
+print(f'Costo total: $ {total}')
+# pprint(camion)
+
+precios = leer_precios(archivo_precios)
+# pprint(precios)
+
+suma_ventas = 0
+for k, v in precios.items():
+    for i in camion:
+        if k.capitalize() == i['nombre'].capitalize():
+            suma_ventas += i['cajones'] * v
+        else:
+            pass
+print('Las ventas totales fueron de: $', suma_ventas)
+
+balance = (suma_ventas - total)
+
+print('El balance total recaudado es de: $', round(balance, 2))
