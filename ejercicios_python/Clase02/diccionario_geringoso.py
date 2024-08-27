@@ -11,7 +11,6 @@ frutas = ['banana', 'manzana', 'mandarina']
 
 def geringoso(lista):
     nueva_lista = []
-    diccionario_geningoso = {}
     for palabra in lista:
         cadena = ''
         for letra in palabra:
@@ -34,5 +33,6 @@ def geringoso(lista):
         nueva_lista.append((palabra, cadena))
     diccionario_geningoso = dict(nueva_lista)
     return diccionario_geningoso
+
 
 print(geringoso(frutas))
