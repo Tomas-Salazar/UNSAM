@@ -15,4 +15,4 @@ for fosforo in fosforos:
     else:
         i += 1
         pass
-print(fosforos[0:i])
+lista = len(fosforos[0:i])
