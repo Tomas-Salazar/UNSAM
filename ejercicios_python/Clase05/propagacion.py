@@ -8,11 +8,23 @@ i = 0
 for fosforo in fosforos:
     if fosforo == -1:
         break
-    elif fosforo == 0:
-        if fosforos[i-1] or fosforos[i+1] == 1:
-            fosforo = 0
-            i += 1
     else:
         i += 1
-        pass
-lista = len(fosforos[0:i])
+
+vector = [1] * len(fosforos[:i])
+print(vector)
+
+# i = 0
+# for fosforo in fosforos:
+#     if fosforo == -1:
+#         break
+#     elif fosforo == 0:
+#         if fosforos[i-1] or fosforos[i+1] == 1:
+#             fosforo = 0
+#             i += 1
+#     else:
+#         i += 1
+#         pass
+
+# vector = [1] * len(fosforos[:i])
+# print(vector)
