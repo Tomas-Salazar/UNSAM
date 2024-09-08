@@ -62,3 +62,9 @@ print('Las ventas totales fueron de: $', suma_ventas)
 balance = (suma_ventas - total)
 
 print('El balance total recaudado es de: $', round(balance, 2))
+
+#---
+print("********************************")
+precios_invertidos = list(zip(precios.values(), precios.keys()))
+# [('Pera', 490.1), ('Lima', 23.45), ('Naranja', 91.1), ('Mandarina', 34.23)]
+print(precios_invertidos)
