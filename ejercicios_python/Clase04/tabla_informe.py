@@ -41,7 +41,7 @@ def leer_precios(nombre_archivo):
 
 def hacer_informe(lista, dicc):
     informe = []
-    headers = ('Nombre', 'Cajones', 'Precio', 'Cambio') # Se puede modificar y pasar por parámetros o bien creando otra función, más módulos
+    headers = ('Nombre', 'Cajones', 'Precio', 'Cambio') # Se puede modificar y pasar por parámetros, creando otra función, más módulos
     
     for i in lista:
         nombre = i['nombre']
