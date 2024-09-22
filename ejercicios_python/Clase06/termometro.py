@@ -1,5 +1,6 @@
 # Ejercicio 6.6: Gaussiana
 import random
+import numpy as np
 
 #La función random.normalvariate(mu,sigma) genera números aleatorios según esta distribución de probabilidades.
 # Por ejemplo, usando mu = 0 y sigma = 1 podemos generar 6 valores aleatorios así:
@@ -14,6 +15,7 @@ def medir_temp(n):
     temp_real = 37.5
     
     mediciones = [temp_real + random.normalvariate(mu, sigma) for _ in range(n)]
+    np.save('ejercicios_python/Data/temperaturas.npy', mediciones)
     return mediciones
 
 def resumen_temp(n):
@@ -35,6 +37,6 @@ def resumen_temp(n):
     
     return (valor_max, valor_min, promedio, round(mediana,2))
 
-n = 7
+n = 999
 evaluacion = resumen_temp(n)
 print(evaluacion)
