@@ -1,5 +1,3 @@
-# Ejercicios 4.4
-import csv
 import informe_funciones
 
 
@@ -18,7 +16,6 @@ def costo_camion(nombre_archivo):
     return total
 
 
-# archivo = 'ejercicios_python/Data/missing.csv'
 archivo = 'ejercicios_python/Data/fecha_camion.csv'
 
 costo = costo_camion(archivo)
