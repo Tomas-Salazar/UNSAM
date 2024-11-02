@@ -1,0 +1,69 @@
+# Ejercicio 10.6: Ordenar el árbol de archivos
+import os
+import datetime
+import shutil  # Para mover el archivo
+
+
+# Obtener y convertir la fecha del nombre del archivo
+def procesar_nombre(fname):
+    """
+    Procesa un archivo, recibiendo su nombre como argumento(sin extensión) finalizando en '_' + 'fecha'
+    Se espera recibir el formato de fecha AAAAMMDD
+    Devuelve el nombre "puro" del archivo y la fecha como objeto de formato datetime
+    """
+    fecha_archivo = fname[-12:-4]
+    fecha_archivo_datetime = datetime.datetime.strptime(fecha_archivo, '%Y%m%d')
+    # Crear el nuevo nombre del archivo sin la fecha y el guion bajo
+    nuevo_nombre = fname[:-13] + '.png'
+    
+    return nuevo_nombre, fecha_archivo_datetime
+
+
+# Procesa archivo para renombrar y modificar fecha interna
+def procesar(fname, fecha_datetime, ruta_vieja):
+    """
+    Actualiza la fecha de acceso y modificación de un archivo, y lo mueve a una carpeta específica.
+    Recibe como parámetro el nombre del archivo a procesar, una fecha a usar para actualizar los metadatos del archivo y la ruta completa
+    en formato datetime.datetime
+    Devuelve la ruta nueva del archivo tras moverlo.
+    """
+    nueva_ruta = os.path.join('ejercicios_python', 'Data', 'imgs_procesadas', fname)
+    
+    # Convertir la fecha a timestamp para actualizar los metadatos
+    ts_fecha = fecha_datetime.timestamp()
+    os.utime(ruta_vieja, (ts_fecha, ts_fecha))
+    # Mover el archivo a la nueva carpeta y con el nuevo nombre
+    shutil.move(ruta_vieja, nueva_ruta)
+    
+    return nueva_ruta
+
+
+def main():
+    # Crear la carpeta de destino si no existe
+    dir_nuevo = os.path.join('ejercicios_python', 'Data', 'imgs_procesadas')
+    if not dir_nuevo:
+        os.mkdir(os.path.join('ejercicios_python', 'Data', 'imgs_procesadas'))
+
+    # Recorrer el directorio de origen
+    for root, dirs, files in os.walk("ejercicios_python/Data/ordenar"):
+        for name in files:
+            ruta_archivo = os.path.join(root, name) # Crea la ruta del archivo
+            
+            # Se identifica la extensión para poder aplicar filtros y procesamientos según si es png o no
+            ext = name[-3:]
+            if ext == 'png':
+                nuevo_nombre, fecha_datetime = procesar_nombre(name)
+                procesar(nuevo_nombre, fecha_datetime, ruta_archivo)
+                
+        for name in dirs:
+            ruta_dir = os.path.join(root, name) # Crea la ruta del directorio
+            
+            # Se intenta borrar todo directorio vacío
+            try:
+                os.rmdir(ruta_dir)
+            except Exception as e:
+                print(f'No se pudo borrar el directorio, {e}')
+
+
+if __name__ == '__main__':
+    main()
