@@ -1,7 +1,8 @@
 # Ejercicio 10.6: Ordenar el árbol de archivos
 import os
 import datetime
-import shutil  # Para mover el archivo
+import shutil
+import sys
 
 
 # Obtener y convertir la fecha del nombre del archivo
@@ -20,8 +21,8 @@ def procesar_nombre(fname):
 
 
 # Procesa archivo para renombrar y modificar fecha interna
-def procesar(fname, fecha_datetime, ruta_origen):
-    dir_destino = os.path.abspath(os.path.join('ejercicios_python', 'Data', 'imgs_procesadas'))
+def procesar(fname, fecha_datetime, ruta_origen, dir_destino):
+    # Usar el directorio destino pasado como argumento
     ruta_destino = os.path.join(dir_destino, fname)
     
     # Asegurarse de que el directorio destino existe
@@ -37,22 +38,36 @@ def procesar(fname, fecha_datetime, ruta_origen):
         # Mover archivo
         shutil.move(ruta_origen, ruta_destino)
     else:
-        print(f"No se encuentra el archivo: {ruta_origen}")
+        print(f'No se encuentra el archivo: {ruta_origen}')
 
 
 def main():
-    # Crear la carpeta de destino si no existe
-    dir_nuevo = os.path.join('ejercicios_python', 'Data', 'imgs_procesadas')
-    if not dir_nuevo:
-        os.mkdir(os.path.join('ejercicios_python', 'Data', 'imgs_procesadas'))
-
+    # Verificar que se proporcionaron los argumentos necesarios
+    if len(sys.argv) != 3:
+        print('Usar: python3 ordenar_imgs.py <directorio_origen> <directorio_destino>')
+        sys.exit(1)
+    
+    # Obtener directorios de los argumentos y convertirlos a rutas absolutas
+    dir_origen = os.path.abspath(sys.argv[1])
+    dir_destino = os.path.abspath(sys.argv[2])
+    
+    # Verificar que existe el directorio origen
+    if not os.path.exists(dir_origen):
+        print(f'Error: El directorio origen "{dir_origen}" no existe')
+        sys.exit(1)
+    
+    # Crear directorio destino si no existe
+    os.makedirs(dir_destino, exist_ok=True)
+    
+    print(f'Procesando archivos de "{dir_origen}" a "{dir_destino}"')
+    
     # Recorrer el directorio de origen
-    for root, dirs, files in os.walk("ejercicios_python/Data/ordenar"):
+    for root, dirs, files in os.walk(dir_origen):
         for name in files:
             if name.endswith('.png'):
                 ruta_archivo = os.path.join(root, name)
                 nuevo_nombre, fecha_datetime = procesar_nombre(name)
-                procesar(nuevo_nombre, fecha_datetime, ruta_archivo)
+                procesar(nuevo_nombre, fecha_datetime, ruta_archivo, dir_destino)
                 
         for name in dirs:
             ruta_dir = os.path.join(root, name)
@@ -60,7 +75,7 @@ def main():
             try:
                 os.rmdir(ruta_dir)
             except Exception as e:
-                print(f'No se pudo borrar el directorio, {e}')
+                print(f'No se pudo borrar el directorio: {e}')
 
 # Para que no se ejecute el script cuando se importa el módulo
 if __name__ == '__main__':

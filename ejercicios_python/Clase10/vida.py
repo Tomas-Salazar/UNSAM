@@ -10,4 +10,4 @@ def vida_en_segundos(fecha):
     return segundos_totales
 
 fecha_tom = vida_en_segundos('04/11/1998')
-print(round(fecha_tom))
+print(f'La cantidad de segundos vivida{round(fecha_tom)}')
