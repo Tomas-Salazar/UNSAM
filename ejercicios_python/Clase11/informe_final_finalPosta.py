@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# informe_final.py
+# informe_final_finalPosta.py
 
-#%% ejercicio 7.7
+#%% Ejercicio 11.8: Volvamos a armar todo
 import fileparse
 from lote import Lote
 import formato_tabla
@@ -65,7 +65,12 @@ def informe_camion(archivo_camion, archivo_precios, fmt = 'txt'):
 
 #%%
 def f_principal(argumentos):
-    informe_camion(argumentos[1], argumentos[2])
+    if len(argumentos) == 4:
+        fmt = argumentos[3]  # Formato especificado por el usuario
+    else:
+        fmt = 'txt'  # Formato predeterminado
+
+    informe_camion(argumentos[1], argumentos[2], fmt)
 
 
 if __name__ == '__main__':
