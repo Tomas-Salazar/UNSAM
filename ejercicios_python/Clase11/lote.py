@@ -4,6 +4,9 @@ class Lote:
         self.cajones = cajones
         self.precio = precio
     
+    def __repr__(self):
+        return f"Lote('{self.nombre}', {self.cajones}, {self.precio})"
+    
     def mostrar_info(self):
         print('Nombre de fruta: ', self.nombre)
         print('Numero de cajones: ', self.cajones)
@@ -20,6 +23,7 @@ class Lote:
 
 
 lote = Lote('Pera', 100, 490.10)
+print(lote)
 lote.calcular_costo()
 
 lote.vender(50)
