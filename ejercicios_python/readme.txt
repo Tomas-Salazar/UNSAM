@@ -1,1 +1,2 @@
-esta carpeta contiene subcarpetas ordenadas por clase y otra con los archivos de datos de toda la materia
+Actividades y ejercicios de la materia Programación I realizador por mi.
+La idea de la materia es ver desde temas básicos hasta temas de nivel intermedio.
